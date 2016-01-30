@@ -16,8 +16,7 @@ public class UIVilliger : MonoBehaviour
     public Sprite Image {get; set;}
     public ViligerTraits Trait { get; set; }
     public string Text {get; set;}
-
-    private Sprite sprite;
+    
     void Start () 
     {
         
@@ -37,8 +36,33 @@ public class UIVilliger : MonoBehaviour
             OnViligerHovered(this);
         }
     }
-    public void SetSprite(Sprite sprite)
+
+    public void FadeOutViliger(float time)
     {
-        VilligerGameObject.GetComponent<SpriteRenderer>().sprite = sprite;
+       StartCoroutine(FadeCoroutine(time, false));
+    }
+
+    public void SetSprite(Sprite sprite, float fadeTime)
+    {
+        var renderer = VilligerGameObject.GetComponent<SpriteRenderer>();
+        renderer.sprite = sprite;
+        var color = renderer.color;
+        color.a = 0.0f;
+        renderer.color = color;
+        StartCoroutine(FadeCoroutine(fadeTime, true));
+    }
+
+    private IEnumerator FadeCoroutine(float time, bool fadeIn)
+    {
+        var renderer = VilligerGameObject.GetComponent<SpriteRenderer>();
+        float timer = time;
+        var dest = new Color(renderer.color.r, renderer.color.g, renderer.color.b, fadeIn ? 1 : 0);
+        var color = renderer.color;
+        while (timer > 0)
+        {
+            timer -= Time.deltaTime;
+            renderer.color = Color.Lerp(dest, color, timer / time);
+            yield return null;
+        }
     }
 }
