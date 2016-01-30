@@ -4,6 +4,8 @@ using System.Collections;
 
 public class Viliger : MonoBehaviour {
 
+    public delegate void ViligerSelected(ViligerTraits trait);
+    public event ViligerSelected OnViligerSelected;
     public Image Icon;
     public Text Message;
 
@@ -16,8 +18,12 @@ public class Viliger : MonoBehaviour {
         Message.text = Text;
         Icon.sprite = Image;
 	}
-	
-	void Update () {
-	
-	}
+
+    public void SelectVillager()
+    {
+        if (OnViligerSelected != null)
+        {
+            OnViligerSelected(Trait);
+        }
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Linq;
 using System;
 using Random = UnityEngine.Random;
 
@@ -23,11 +24,6 @@ public class ViligerGenerator : MonoBehaviour {
 
 	void Awake() 
     {
-        if(FindObjectOfType<ViligerGenerator>() !=null)
-        {
-            Destroy(gameObject);
-            return;
-        }
 	    Instance = this;
         DontDestroyOnLoad(this);
 	}
@@ -43,6 +39,17 @@ public class ViligerGenerator : MonoBehaviour {
 
         return viliger;
     }
-	
+
+    public Viliger CreateViliger(ViligerTraits trait)
+    {
+        var go = Instantiate(ViligerPrefab);
+        var viliger = go.GetComponent<Viliger>();
+        int traitIndex = Viligers.ToList().FindIndex(vil => vil.Trait == trait);
+        viliger.Image = Viligers[traitIndex].Image;
+        viliger.Trait = Viligers[traitIndex].Trait;
+        viliger.Text = Viligers[traitIndex].Text;
+
+        return viliger;
+    }	
 
 }
