@@ -15,13 +15,16 @@ public class Controller : MonoBehaviour
     public int StartPopulation;
     public float RoundTime;
     private bool allowInput = true;
-    private IVillage village;    
+    private IVillage village;
+    private Advisor advisor;
     
     void Start () 
     {
+        advisor = GetComponent<Advisor>();
         village = new SimpleVillage(100);
         foreach (var spot in villigerSpots)
         {
+            spot.OnViligerHovered += advisor.ShowVilligerAdvice;
             spot.OnViligerSelected += OnViligerClicked;
         }
         NextYear();        

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 using System;
@@ -17,6 +18,7 @@ public class SimpleVillage : IVillage
         public bool Good;
     }
 
+    private List<IVilliger> realPopulation;
     public int Year { get; private set; }
 
     public int Population { get; private set; }
