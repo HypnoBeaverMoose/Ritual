@@ -7,6 +7,7 @@ using System;
 public class Controller : MonoBehaviour 
 {
     public UIVilliger[] villigerSpots;
+    public Sprite[] VilligerSprites;
 
     public Text populationText;
     public Text yearText;
@@ -17,6 +18,10 @@ public class Controller : MonoBehaviour
     void Start () 
     {
         village = new SimpleVillage(100);
+        foreach (var spot in villigerSpots)
+        {
+            spot.OnViligerSelected += OnViligerClicked;
+        }
         NextYear();
 	}
 
@@ -31,7 +36,7 @@ public class Controller : MonoBehaviour
         foreach (var spot in villigerSpots)
         {
             spot.Villiger = village.GetNextOffering();
-            spot.Image = PickVilligerSprite(spot.Villiger);
+            spot.SetSprite(PickVilligerSprite(spot.Villiger)); 
         }
         village.UpdateVillage();
         yearText.text = village.YearText;
@@ -40,6 +45,6 @@ public class Controller : MonoBehaviour
 
     public Sprite PickVilligerSprite(IVilliger villiger)
     {
-        return new Sprite();
+        return VilligerSprites[Random.Range(0, VilligerSprites.Length)];
     }
 }

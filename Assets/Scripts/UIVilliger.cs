@@ -2,25 +2,25 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public interface IVilliger
-{ };
+
 public class UIVilliger : MonoBehaviour
 {
+    public delegate void ViligerHovered(UIVilliger villiger);
+    public event ViligerHovered OnViligerHovered;
     
     public delegate void ViligerSelected(UIVilliger villiger);
     public event ViligerSelected OnViligerSelected;
-    public Image Sprite;
-    public Text Message;
 
-
+    public GameObject VilligerGameObject;
     public IVilliger Villiger { get; set; }
     public Sprite Image {get; set;}
     public ViligerTraits Trait { get; set; }
     public string Text {get; set;}
 
+    private Sprite sprite;
     void Start () 
     {
-        Message.text = Text;
+        
 	}
 
     public void SelectVillager()
@@ -29,5 +29,16 @@ public class UIVilliger : MonoBehaviour
         {
             OnViligerSelected(this);
         }
+    }
+    public void HoverVilliger()
+    {
+        if (OnViligerHovered != null)
+        {
+            OnViligerHovered(this);
+        }
+    }
+    public void SetSprite(Sprite sprite)
+    {
+        VilligerGameObject.GetComponent<SpriteRenderer>().sprite = sprite;
     }
 }

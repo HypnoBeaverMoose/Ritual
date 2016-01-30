@@ -3,7 +3,12 @@ using System.Collections;
 using System.Linq;
 
 using System;
-
+public interface IVilliger
+{ };
+public class SimpleViliger : IVilliger
+{
+ 
+}
 public class SimpleVillage : IVillage
 {
     private class VillageTrait
@@ -110,11 +115,10 @@ public class SimpleVillage : IVillage
 
     public void Sacrifice(IVilliger villiger)
     {
-        throw new NotImplementedException();
     }
 
     public IVilliger GetNextOffering()
     {
-        throw new NotImplementedException();
+        return new SimpleViliger();
     }
 }
