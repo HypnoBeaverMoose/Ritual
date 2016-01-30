@@ -2,13 +2,18 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Viliger : MonoBehaviour {
-
-    public delegate void ViligerSelected(ViligerTraits trait);
+public interface IVilliger
+{ };
+public class UIVilliger : MonoBehaviour
+{
+    
+    public delegate void ViligerSelected(UIVilliger villiger);
     public event ViligerSelected OnViligerSelected;
-    public Image Icon;
+    public Image Sprite;
     public Text Message;
 
+
+    public IVilliger Villiger { get; set; }
     public Sprite Image {get; set;}
     public ViligerTraits Trait { get; set; }
     public string Text {get; set;}
@@ -16,14 +21,13 @@ public class Viliger : MonoBehaviour {
     void Start () 
     {
         Message.text = Text;
-        Icon.sprite = Image;
 	}
 
     public void SelectVillager()
     {
         if (OnViligerSelected != null)
         {
-            OnViligerSelected(Trait);
+            OnViligerSelected(this);
         }
     }
 }

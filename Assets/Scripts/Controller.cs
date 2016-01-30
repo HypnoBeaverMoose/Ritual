@@ -4,55 +4,42 @@ using System.Collections;
 using Random = UnityEngine.Random;
 using System;
 
-public class Controller : MonoBehaviour {
+public class Controller : MonoBehaviour 
+{
+    public UIVilliger[] villigerSpots;
 
     public Text populationText;
     public Text yearText;
-    public GameObject viligersParent;
+    public int StartPopulation;
+
     private IVillage village;    
-    public int Population {get; set;}
-    public object Traits { get; set; }
     
-    void Start () {
+    void Start () 
+    {
         village = new SimpleVillage(100);
-        GenerateYear();
+        NextYear();
 	}
 
-    public void OnViligerClicked(ViligerTraits trait)
+    public void OnViligerClicked(UIVilliger villiger)
     {
-        (village as SimpleVillage).SetTrait(TraitsMap.GetYearTrait(trait), true); ;
-        for (int i = 0; i < viligersParent.transform.childCount; i++)
-		{
-            Destroy(viligersParent.transform.GetChild(i).gameObject);
-        }
-
-        MessUpTrait(TraitsMap.GetYearTrait(trait));
-        GenerateYear();
+        village.Sacrifice(villiger.Villiger);
+        NextYear();
     }
 
-    public void GenerateYear()
+    public void NextYear()
     {
-        int length = Enum.GetValues(typeof(ViligerTraits)).Length;
-        for (int i = 0; i < length; i++)
+        foreach (var spot in villigerSpots)
         {
-            var viliger = ViligerGenerator.Instance.CreateViliger((ViligerTraits)i);
-            viliger.transform.SetParent(viligersParent.transform, false);
-            viliger.OnViligerSelected += OnViligerClicked;
+            spot.Villiger = village.GetNextOffering();
+            spot.Image = PickVilligerSprite(spot.Villiger);
         }
         village.UpdateVillage();
         yearText.text = village.YearText;
         populationText.text = village.Population.ToString();
-
     }
-    private void MessUpTrait(YearTraits locked)
+
+    public Sprite PickVilligerSprite(IVilliger villiger)
     {
-        int index = (int)locked;
-        int rand = Random.Range(0, Enum.GetValues(typeof(YearTraits)).Length);
-        while (rand == index)
-        {
-            rand = Random.Range(0, Enum.GetValues(typeof(YearTraits)).Length);
-        }
-        (village as SimpleVillage).SetTrait((YearTraits)rand, false);
+        return new Sprite();
     }
-
 }

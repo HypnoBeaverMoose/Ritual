@@ -106,4 +106,15 @@ public class SimpleVillage : IVillage
         }
     }
 
+
+
+    public void Sacrifice(IVilliger villiger)
+    {
+        throw new NotImplementedException();
+    }
+
+    public IVilliger GetNextOffering()
+    {
+        throw new NotImplementedException();
+    }
 }

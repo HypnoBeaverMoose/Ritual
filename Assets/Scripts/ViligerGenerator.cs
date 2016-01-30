@@ -6,8 +6,7 @@ using Random = UnityEngine.Random;
 
 public class ViligerGenerator : MonoBehaviour {
 
-    [Serializable]
-    
+    [Serializable]    
     public struct ViligerByTrait
     {
         public string Text;
@@ -28,28 +27,28 @@ public class ViligerGenerator : MonoBehaviour {
         DontDestroyOnLoad(this);
 	}
 
-    public Viliger CreateRandomViliger()
-    {        
-        var go = Instantiate(ViligerPrefab);
-        var viliger = go.GetComponent<Viliger>();
-        int traitIndex = Random.Range(0, Viligers.Length);
-        viliger.Image = Viligers[traitIndex].Image;       
-        viliger.Trait = Viligers[traitIndex].Trait;
-        viliger.Text = Viligers[traitIndex].Text;
+    //public UIVilliger CreateRandomViliger()
+    //{        
+    //    var go = Instantiate(ViligerPrefab);
+    //    var viliger = go.GetComponent<UIViliger>();
+    //    int traitIndex = Random.Range(0, Viligers.Length);
+    //    viliger.Image = Viligers[traitIndex].Image;       
+    //    viliger.Trait = Viligers[traitIndex].Trait;
+    //    viliger.Text = Viligers[traitIndex].Text;
 
-        return viliger;
-    }
+    //    return viliger;
+    //}
 
-    public Viliger CreateViliger(ViligerTraits trait)
-    {
-        var go = Instantiate(ViligerPrefab);
-        var viliger = go.GetComponent<Viliger>();
-        int traitIndex = Viligers.ToList().FindIndex(vil => vil.Trait == trait);
-        viliger.Image = Viligers[traitIndex].Image;
-        viliger.Trait = Viligers[traitIndex].Trait;
-        viliger.Text = Viligers[traitIndex].Text;
+    //public UIVilliger CreateViliger(ViligerTraits trait)
+    //{
+    //    var go = Instantiate(ViligerPrefab);
+    //    var viliger = go.GetComponent<UIVilliger>();
+    //    int traitIndex = Viligers.ToList().FindIndex(vil => vil.Trait == trait);
+    //    viliger.Image = Viligers[traitIndex].Image;
+    //    viliger.Trait = Viligers[traitIndex].Trait;
+    //    viliger.Text = Viligers[traitIndex].Text;
 
-        return viliger;
-    }	
+    //    return viliger;
+    //}	
 
 }

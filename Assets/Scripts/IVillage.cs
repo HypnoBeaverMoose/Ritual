@@ -10,6 +10,10 @@ public interface IVillage
 
     string YearText { get; }
 
+    void Sacrifice(IVilliger villiger);
+
+    IVilliger GetNextOffering();
+
     void UpdateVillage();
     
 }
